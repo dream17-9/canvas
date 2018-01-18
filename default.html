@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #cas{
+            display: block;
+            background: #ccc;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas width='600' height='600' id="cas"></canvas>
+</body>
+<script>
+    var data = [
+        {
+            val:0.4,
+            col:'red',
+            txt:'一月'
+        },
+        {
+            val:0.25,
+            col:'green',
+            txt:'二月'
+        },
+        {
+            val:0.2,
+            col:'blue',
+            txt:'三月'
+        },
+        {
+            val:0.15,
+            col:'pink',
+            txt:'四月'
+        }
+    ];
+    var cas = document.querySelector('#cas');
+    var myCanvas = cas.getContext('2d');
+    myCanvas.translate(200,200);
+    
+    
+    var start = 0; //起始角度
+    var end = 0; // 结束角度
+    var sum = 0;
+    var deg = Math.PI / 180;
+    data.forEach(function(val,i){
+        sum += val.val;
+    });
+    // console.log(sum)
+    data.forEach(function(val,i){
+        var curDeg = val.val / sum * 360;
+        // console.log(curDeg)
+        end = start + curDeg;  
+
+        draw(val,i,start,end); 
+        myCanvas.beginPath();
+        myCanvas.fillStyle = val.col;
+        myCanvas.fillRect(200,120+i*20,20,8);
+        myCanvas.fillText(val.txt,160,128+i*20)   
+        // console.log(val.col)
+        myCanvas.fill();
+        // myCanvas.closePath();
+        /* // console.log(start,end)  
+        myCanvas.beginPath();    
+        myCanvas.moveTo(0,0);
+        myCanvas.arc(0,0,100,start*deg,end*deg);     
+        myCanvas.fillStyle = val.col;
+        myCanvas.fillRect(200,120+i*20,20,8);
+        myCanvas.fillText(val.txt,160,128+i*20)   
+        // console.log(val.col)
+        myCanvas.fill();
+        myCanvas.closePath(); */
+        start = end;
+    }) 
+    function draw(val,i,start,end){
+        var step = 0;
+        //实现动画
+        window.requestAnimationFrame(addA)
+            ;
+            function addA(){
+                step ++
+            // console.log(start,end)  
+            myCanvas.beginPath();    
+            myCanvas.moveTo(0,0);
+            myCanvas.arc(0,0,100,start*deg,(start+step)*deg);     
+            myCanvas.fillStyle = val.col;
+           /*  myCanvas.fillRect(200,120+i*20,20,8);
+            myCanvas.fillText(val.txt,160,128+i*20)   */ 
+            // console.log(val.col)
+            myCanvas.fill();
+            myCanvas.closePath();
+            // start = end;   
+            //满足条件 继续执行动画
+            if((start+step)<end){
+                window.requestAnimationFrame(addA)
+            }  
+        }
+    }
+</script>
+</html>

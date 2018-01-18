@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #cas{
+            display: block;
+            background: #ccc;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas width='1000' height='600' id="cas"></canvas>
+</body>
+<script>
+    var cas = document.querySelector('#cas');
+    var myCanvas = cas.getContext('2d');
+    myCanvas.translate(100,500);
+    // x
+    myCanvas.beginPath();    
+    myCanvas.moveTo(0,0);
+    myCanvas.lineTo(800,0);
+    myCanvas.strokeStyle = 'blue';
+    myCanvas.stroke();
+    myCanvas.closePath();
+    // y
+    myCanvas.beginPath();    
+    myCanvas.moveTo(0,0);
+    myCanvas.lineTo(0,-450);
+    myCanvas.strokeStyle = 'blue';
+    myCanvas.stroke();
+    myCanvas.closePath();
+    // 矩形
+    var m = ['1月','2月','3月','4月','5月'];
+    var h = [50,200,230,140,55];
+    var n = [0,50,100,150,200,250,300,350,400,450,500];
+    var c = ['blue','red','yellow','pink','green'];
+    
+    // myCanvas.moveTo(100,0);
+    // myCanvas.lineTo(100,-30);
+    // myCanvas.lineTo(140,-30);
+    // myCanvas.lineTo(140,0);
+    // myCanvas.fillStyle = 'blue';
+    // myCanvas.fill();
+
+    h.forEach(function(val,i){
+        myCanvas.beginPath();
+        myCanvas.moveTo(100*i+35,0);
+        myCanvas.lineTo(100*i+35,-val);
+        myCanvas.lineTo(100*i+35+40,-val);
+        myCanvas.lineTo(100*i+35+40,0);
+        // console.log(c[i])
+        myCanvas.fillStyle = c[i];
+        myCanvas.fill();
+        myCanvas.closePath();
+
+       
+    })
+    m.forEach(function(val,i){
+        myCanvas.fillText(val,100*i+47,20);
+    })
+    n.forEach(function(val,i){
+        myCanvas.fillText(val,-15,-40*i);
+        myCanvas.textAlign = 'right'
+    })
+</script>
+</html>
